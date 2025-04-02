@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Cable TV Operator Management System</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full text-center">
+            <!-- 404 Icon -->
+            <div class="flex justify-center mb-8">
+                <div class="w-32 h-32 relative animate-float">
+                    <div class="absolute inset-0 bg-primary-100 rounded-full flex items-center justify-center">
+                        <span class="text-6xl font-bold text-primary-500">404</span>
+                    </div>
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-primary-50 rounded-full filter blur-md"></div>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                    Page Not Found
+                </h2>
+                <p class="text-gray-600">
+                    Oops! The page you're looking for doesn't exist or has been moved.
+                </p>
+            </div>
+
+            <!-- Search Box -->
+            <div class="mb-8">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Try searching for something else..."
+                        class="w-full px-4 py-2 pl-10 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    >
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <button 
+                        onclick="handleSearch()"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-primary-500 hover:text-primary-600"
+                    >
+                        Go
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mb-8">
+                <h3 class="text-sm font-medium text-gray-500 mb-4">Popular Pages</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="/dashboard.html" class="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-home text-primary-500 mb-2"></i>
+                        <p class="text-sm text-gray-700">Dashboard</p>
+                    </a>
+                    <a href="/complaints.html" class="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-exclamation-circle text-primary-500 mb-2"></i>
+                        <p class="text-sm text-gray-700">Complaints</p>
+                    </a>
+                    <a href="/collections.html" class="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-money-bill-wave text-primary-500 mb-2"></i>
+                        <p class="text-sm text-gray-700">Collections</p>
+                    </a>
+                    <a href="/customers.html" class="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-users text-primary-500 mb-2"></i>
+                        <p class="text-sm text-gray-700">Customers</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-x-4">
+                <button 
+                    onclick="window.history.back()"
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Go Back
+                </button>
+                
+                <button 
+                    onclick="window.location.href = '/index.html'"
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <i class="fas fa-home mr-2"></i>
+                    Home
+                </button>
+            </div>
+
+            <!-- Support Info -->
+            <div class="mt-8 text-sm text-gray-500">
+                <p>Need help finding something?</p>
+                <p class="mt-1">
+                    Contact support at 
+                    <a href="mailto:support@cabletv.com" class="text-primary-600 hover:text-primary-500">
+                        support@cabletv.com
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle search functionality
+        function handleSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                // Redirect to search results page
+                window.location.href = `/search.html?q=${encodeURIComponent(searchTerm)}`;
+            }
+        }
+
+        // Handle enter key in search input
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Log 404 error for analytics
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            console.log(`404 Error: Page not found - ${path}`);
+            
+            // You could send this to your analytics service
+            // analytics.logError('404', { path });
+        });
+    </script>
+</body>
+</html>

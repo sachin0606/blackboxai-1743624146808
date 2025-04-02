@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cable TV Operator Management System</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #0ea5e9;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
+        <div class="flex items-center justify-center h-16 border-b">
+            <h1 class="text-xl font-bold text-primary-600">Cable TV Manager</h1>
+        </div>
+        <nav class="p-4">
+            <div class="space-y-2">
+                <a href="#" class="flex items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg">
+                    <i class="fas fa-home mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-users mr-3"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-exclamation-circle mr-3"></i>
+                    <span>Complaints</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-box mr-3"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-money-bill-wave mr-3"></i>
+                    <span>Collections</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-receipt mr-3"></i>
+                    <span>Expenses</span>
+                </a>
+                <a href="#" class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                    <i class="fas fa-user-tie mr-3"></i>
+                    <span>Staff</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8">
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+                <p class="text-sm text-gray-600">Welcome back, Admin</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="px-4 py-2 text-sm text-white bg-primary-500 rounded-lg hover:bg-primary-600">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Complaint
+                </button>
+                <div class="relative">
+                    <button class="flex items-center text-gray-600 hover:text-gray-800">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=0EA5E9&color=fff" 
+                             alt="Admin" 
+                             class="w-8 h-8 rounded-full">
+                        <i class="fas fa-chevron-down ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Customers -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm">Total Customers</h3>
+                    <span class="text-primary-500 bg-primary-50 p-2 rounded-full">
+                        <i class="fas fa-users"></i>
+                    </span>
+                </div>
+                <p class="text-2xl font-bold text-gray-800">2,543</p>
+                <p class="text-sm text-green-600 mt-2">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span>3.2% increase</span>
+                </p>
+            </div>
+
+            <!-- Active Complaints -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm">Active Complaints</h3>
+                    <span class="text-red-500 bg-red-50 p-2 rounded-full">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
+                <p class="text-2xl font-bold text-gray-800">42</p>
+                <p class="text-sm text-red-600 mt-2">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span>12 new today</span>
+                </p>
+            </div>
+
+            <!-- Today's Collection -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm">Today's Collection</h3>
+                    <span class="text-green-500 bg-green-50 p-2 rounded-full">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </span>
+                </div>
+                <p class="text-2xl font-bold text-gray-800">₹15,245</p>
+                <p class="text-sm text-green-600 mt-2">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span>18.2% increase</span>
+                </p>
+            </div>
+
+            <!-- Low Stock Items -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-500 text-sm">Low Stock Items</h3>
+                    <span class="text-yellow-500 bg-yellow-50 p-2 rounded-full">
+                        <i class="fas fa-box"></i>
+                    </span>
+                </div>
+                <p class="text-2xl font-bold text-gray-800">8</p>
+                <p class="text-sm text-yellow-600 mt-2">
+                    <i class="fas fa-exclamation-triangle mr-1"></i>
+                    <span>Needs attention</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Collection Trend -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Collection Trend</h3>
+                <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-500">Chart will be implemented here</p>
+                </div>
+            </div>
+
+            <!-- Complaint Status -->
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Complaint Status</h3>
+                <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-500">Chart will be implemented here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <div class="p-6 border-b">
+                <h3 class="text-lg font-semibold text-gray-800">Recent Activities</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 mr-4">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-800">New customer registered</p>
+                            <p class="text-xs text-gray-500">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-4">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-800">Collection received from John Doe</p>
+                            <p class="text-xs text-gray-500">15 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-4">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-800">New complaint registered</p>
+                            <p class="text-xs text-gray-500">1 hour ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 hidden">
+        <div class="flex items-center">
+            <i class="fas fa-info-circle text-primary-500 mr-3"></i>
+            <div>
+                <p class="text-sm font-medium text-gray-800">Notification Title</p>
+                <p class="text-xs text-gray-500">Notification message goes here</p>
+            </div>
+            <button class="ml-4 text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

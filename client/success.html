@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success - Cable TV Operator Management System</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes checkmark {
+            0% {
+                stroke-dashoffset: 100;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        .checkmark {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: checkmark 1s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full text-center">
+            <!-- Success Icon -->
+            <div class="flex justify-center mb-8">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg class="w-16 h-16" viewBox="0 0 52 52">
+                        <circle class="text-green-100 fill-current" cx="26" cy="26" r="25" />
+                        <path class="text-green-500 stroke-current checkmark"
+                            fill="none"
+                            stroke-width="4"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successContent">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                    Action Completed Successfully
+                </h2>
+                <p class="text-gray-600 mb-8" id="successMessage">
+                    Your request has been processed successfully.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-x-4">
+                <button 
+                    id="primaryActionBtn"
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <i class="fas fa-check mr-2"></i>
+                    Continue
+                </button>
+                <button 
+                    onclick="window.history.back()"
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Go Back
+                </button>
+            </div>
+
+            <!-- Additional Info -->
+            <div id="additionalInfo" class="mt-8 text-sm text-gray-500">
+                <!-- Additional information will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Update success message and actions based on type
+        document.addEventListener('DOMContentLoaded', () => {
+            const type = getQueryParam('type');
+            const successContent = document.getElementById('successContent');
+            const primaryActionBtn = document.getElementById('primaryActionBtn');
+            const additionalInfo = document.getElementById('additionalInfo');
+
+            switch (type) {
+                case 'payment':
+                    successContent.innerHTML = `
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                            Payment Successful
+                        </h2>
+                        <p class="text-gray-600 mb-8">
+                            The payment has been processed and recorded successfully.
+                        </p>
+                    `;
+                    primaryActionBtn.innerHTML = `
+                        <i class="fas fa-receipt mr-2"></i>
+                        View Receipt
+                    `;
+                    primaryActionBtn.onclick = () => {
+                        // Handle receipt view action
+                        const receiptId = getQueryParam('receiptId');
+                        window.location.href = `/collections.html?view=receipt&id=${receiptId}`;
+                    };
+                    break;
+
+                case 'complaint':
+                    successContent.innerHTML = `
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                            Complaint Registered
+                        </h2>
+                        <p class="text-gray-600 mb-8">
+                            Your complaint has been registered and will be addressed shortly.
+                        </p>
+                    `;
+                    primaryActionBtn.innerHTML = `
+                        <i class="fas fa-list mr-2"></i>
+                        View Complaints
+                    `;
+                    primaryActionBtn.onclick = () => {
+                        window.location.href = '/complaints.html';
+                    };
+                    break;
+
+                case 'registration':
+                    successContent.innerHTML = `
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                            Registration Complete
+                        </h2>
+                        <p class="text-gray-600 mb-8">
+                            The new account has been created successfully.
+                        </p>
+                    `;
+                    primaryActionBtn.innerHTML = `
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Login Now
+                    `;
+                    primaryActionBtn.onclick = () => {
+                        window.location.href = '/login.html';
+                    };
+                    break;
+
+                case 'password-reset':
+                    successContent.innerHTML = `
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                            Password Reset Complete
+                        </h2>
+                        <p class="text-gray-600 mb-8">
+                            Your password has been reset successfully.
+                        </p>
+                    `;
+                    primaryActionBtn.innerHTML = `
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Login with New Password
+                    `;
+                    primaryActionBtn.onclick = () => {
+                        window.location.href = '/login.html';
+                    };
+                    break;
+
+                default:
+                    // Default success message and action
+                    primaryActionBtn.onclick = () => {
+                        window.location.href = '/index.html';
+                    };
+            }
+
+            // Display custom message if provided
+            const message = getQueryParam('message');
+            if (message) {
+                document.getElementById('successMessage').textContent = decodeURIComponent(message);
+            }
+
+            // Display additional info if provided
+            const info = getQueryParam('info');
+            if (info) {
+                additionalInfo.innerHTML = decodeURIComponent(info);
+            }
+        });
+    </script>
+</body>
+</html>

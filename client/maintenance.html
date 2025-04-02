@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance - Cable TV Operator Management System</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin 3s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full text-center">
+            <!-- Maintenance Icon -->
+            <div class="flex justify-center mb-8">
+                <div class="w-32 h-32 relative">
+                    <div class="absolute inset-0 bg-primary-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-cog text-6xl text-primary-500 animate-spin-slow"></i>
+                    </div>
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-primary-50 rounded-full filter blur-md"></div>
+                </div>
+            </div>
+
+            <!-- Maintenance Message -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                    System Maintenance
+                </h2>
+                <p class="text-gray-600 mb-4">
+                    We're currently performing scheduled maintenance to improve our services.
+                </p>
+                <p class="text-sm text-gray-500">
+                    Expected completion: <span id="completionTime" class="font-medium">Loading...</span>
+                </p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progressBar" class="bg-primary-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">
+                    Maintenance Progress
+                </p>
+            </div>
+
+            <!-- Status Updates -->
+            <div class="mb-8">
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h3 class="text-sm font-medium text-gray-700 mb-3">Recent Updates</h3>
+                    <div id="statusUpdates" class="space-y-3 text-left">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-700">Database backup completed</p>
+                                <p class="text-xs text-gray-500">2 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-spinner fa-spin text-primary-500"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-700">System updates in progress</p>
+                                <p class="text-xs text-gray-500">Current task</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Refresh Button -->
+            <div class="mb-8">
+                <button 
+                    onclick="checkStatus()"
+                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    Check Status
+                </button>
+            </div>
+
+            <!-- Alternative Contact -->
+            <div class="text-sm text-gray-500">
+                <p>For urgent matters, please contact:</p>
+                <div class="mt-2 space-y-1">
+                    <p>
+                        <i class="fas fa-phone mr-2"></i>
+                        Emergency Support: +1 (555) 123-4567
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-2"></i>
+                        Email: support@cabletv.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- Auto Refresh Notice -->
+            <div class="mt-4 text-xs text-gray-400">
+                This page will automatically refresh every 30 seconds
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const completionTime = document.getElementById('completionTime');
+
+        // Simulate maintenance progress
+        function updateProgress() {
+            if (progress < 100) {
+                progress += Math.random() * 5;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
+            }
+        }
+
+        // Update completion time
+        function updateCompletionTime() {
+            const now = new Date();
+            const completion = new Date(now.getTime() + 30 * 60000); // 30 minutes from now
+            completionTime.textContent = completion.toLocaleTimeString();
+        }
+
+        // Check maintenance status
+        function checkStatus() {
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            // Disable button and show loading state
+            button.disabled = true;
+            button.innerHTML = `
+                <i class="fas fa-spinner fa-spin mr-2"></i>
+                Checking...
+            `;
+
+            // Simulate API call
+            setTimeout(() => {
+                updateProgress();
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }, 1500);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCompletionTime();
+            updateProgress();
+
+            // Auto refresh progress
+            setInterval(updateProgress, 5000);
+
+            // Auto refresh page
+            setTimeout(() => {
+                window.location.reload();
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
